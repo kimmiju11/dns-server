@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dns-server:
+    build: .
+    ports:
+      - "8053:5353/udp"  # UDP 포트 매핑 (호스트:8053 -> 컨테이너:5353)
+    networks:
+      - dns-network
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1  # 로그 즉시 출력
+
+networks:
+  dns-network:
+    driver: bridge
